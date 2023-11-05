@@ -152,17 +152,10 @@
 .wpo-story-section-s5,
 .wpo-story-section-s6 {
 
-	@media(max-width:991px) {
-		padding-bottom: 0;
-	}
-
 	.story-timeline {
 		position: relative;
 		padding: 100px 0 0;
 
-		@media(max-width:991px) {
-			padding-top: 20px;
-		}
 
 		.row {
 			align-items: center;
@@ -178,9 +171,6 @@
 			top: 0;
 			@include translatingX();
 
-			@include media-query(991px) {
-				display: none;
-			}
 		}
 
 		.round-shape,
@@ -196,21 +186,18 @@
 			border-radius: 50%;
 			z-index: 1;
 
-			@include media-query(991px) {
-				display: none;
-
-				&:before {
-					display: none;
-				}
-			}
 		}
 
 		.round-shape-2 {
 			left: 0;
+			@media(max-width:991px) {
+				left: 50%;
+			}
+			
 		}
 
 		.img-holder {
-			max-width: 330px;
+			max-width: 200px;
 			border-radius: 50%;
 			position: relative;
 			z-index: 1;
@@ -260,11 +247,6 @@
 			border-radius: 50%;
 			margin-right: 0;
 
-			@media(max-width:991px) {
-				margin: 0 auto;
-				margin-bottom: 50px;
-			}
-
 			img {
 				border-radius: 50%;
 			}
@@ -298,10 +280,7 @@
 				padding-top: 0 !important;
 			}
 
-			@media(max-width:991px) {
-				padding: 0 !important;
-				margin: 0 !important;
-			}
+			
 		}
 	}
 
@@ -341,51 +320,19 @@
 	.story-timeline .story-text {
 		padding-left: 50px;
 
-		@include media-query(991px) {
-			background: transparentize($theme-primary-color, 0.95);
-			padding: 35px 25px;
-			text-align: center;
-			margin-bottom: 0px;
-		}
-
 	}
 
 	.story-timeline .left-site .story-text {
 		padding-left: 0px;
 		padding-right: 50px;
 
-		@include media-query(991px) {
-			background: transparentize($theme-primary-color, 0.95);
-			padding: 35px 25px;
-			text-align: center;
-		}
-
 	}
 
-	.story-timeline .right-align-text {
-		@include widther(992px) {
-			text-align: right;
-		}
-
-		p {
-			margin-left: auto;
-		}
-	}
-
-	.story-timeline .story-text.right-align-text {
-		@include widther(992px) {
-			padding-left: 0;
-			margin-right: 50px;
-		}
-	}
 
 	.story-timeline .text-holder {
 		position: relative;
 
-		@include media-query(991px) {
-			border: 0;
-			padding-top: 0 !important;
-		}
+
 
 		.heart {
 			background: $white;
@@ -401,9 +348,7 @@
 			@include rounded-border();
 			z-index: 10;
 
-			@include media-query(991px) {
-				display: none;
-			}
+			
 		}
 
 		.fi {
@@ -415,6 +360,9 @@
 	.story-timeline .right-heart .heart {
 		left: auto;
 		right: -25px;
+		@include media-query(991px) {
+			display: none;
+		}
 	}
 
 	.story-timeline h3 {
