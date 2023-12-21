@@ -296,6 +296,38 @@
                                 <div class="wpo-section-title">
                                     <h2>¿Nos acompañas?</h2>
                                 </div>
+                                <form method="post" class="contact-validation-active" id="confirmation-form">
+                                    <div>
+                                        <input type="text" class="form-control" name="name" id="form-name"
+                                            placeholder="Name">
+                                    </div>
+                                    <div>
+                                        <input type="email" class="form-control" name="email" id="form-email"
+                                            placeholder="Email">
+                                    </div>
+
+                                    <div>
+                                        <select name="guest" class="form-control">
+                                            <option disabled="disabled" selected>Número de asistentes</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="submit-area">
+                                        <button type="submit" id="form-submit" class="theme-btn">Confirmar</button>
+                                        <div id="c-loader">
+                                            <i class="ti-reload"></i>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix error-handling-messages">
+                                        <div id="success">Thank you</div>
+                                        <div id="error"> Error occurred while sending email. Please try again later.
+                                        </div>
+                                    </div>
+                                </form>
                                 <div class="submit-area">
                                     <button class="theme-btn margin-bottom-2"><a href="tel:+524622349916"
                                             class="theme-btn"><i class="fa fa-phone"></i> Llama para
@@ -325,6 +357,32 @@
                 </div>
             </div>
         </section>
+        <!-- end of wpo-contact-section -->
+        <!-- start of wpo-contact-section -->
+
+        <script>
+            const form = document.querySelector("#confirmation-form")
+            const submitButton = document.querySelector("#form-submit")
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzPCPt4xFBQ2X0RDP6GOfRI3ykpImM1I4qo2zXv32ox0SPyYHmHYDnZz4YhOWb4P6MX/exec'
+
+            form.addEventListener('submit', e => {
+                submitButton.disabled = true
+                e.preventDefault()
+                let requestBody = new FormData(form)
+
+                fetch(scriptURL, { method: 'POST', body: requestBody })
+                    .then(response => {
+                        alert('Success!', response)
+                        submitButton.disabled = false
+                    })
+                    .catch(error => {
+                        alert('Error!', error.message)
+                        submitButton.disabled = false
+
+                    }
+                    )
+            })
+        </script>
         <!-- end of wpo-contact-section -->
 
 
