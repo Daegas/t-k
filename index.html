@@ -370,7 +370,7 @@
                 e.preventDefault()
                 let requestBody = new FormData(form)
 
-                fetch(scriptURL, { method: 'POST', body: requestBody })
+                fetch(scriptURL, { method: 'POST', body: requestBody, mode: 'no-cors' })
                     .then(response => {
                         alert('Success!', response)
                         submitButton.disabled = false
