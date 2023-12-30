@@ -299,21 +299,22 @@
                                 <form method="post" class="contact-validation-active" id="confirmation-form">
                                     <div>
                                         <input type="text" class="form-control" name="name" id="form-name"
-                                            placeholder="Name">
+                                            placeholder="Nombre completo" required>
                                     </div>
                                     <div>
-                                        <input type="email" class="form-control" name="email" id="form-email"
-                                            placeholder="Email">
+                                        <input type="phone" class="form-control" name="phone" id="form-phone"
+                                            placeholder="Telefono" required>
                                     </div>
 
                                     <div>
-                                        <select name="guest" class="form-control">
+                                        <select name="guest" class="form-control" id="form-guest" required>
                                             <option disabled="disabled" selected>Número de asistentes</option>
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
                                             <option>4</option>
                                             <option>5</option>
+                                            <option>6</option>
                                         </select>
                                     </div>
                                     <div class="submit-area">
@@ -323,20 +324,14 @@
                                         </div>
                                     </div>
                                     <div class="clearfix error-handling-messages">
-                                        <div id="success">Thank you</div>
-                                        <div id="error"> Error occurred while sending email. Please try again later.
+                                        <div id="success">Gracias</div>
+                                        <div id="error"> Ocurrió un error. Favor de intentar después
                                         </div>
                                     </div>
                                 </form>
                                 <div class="submit-area">
-                                    <button class="theme-btn margin-bottom-2"><a href="tel:+524622349916"
-                                            class="theme-btn"><i class="fa fa-phone"></i> Llama para
-                                            reservar</a></button>
-
-                                </div>
-                                <div class="submit-area">
                                     <button class="theme-btn"><a
-                                            href="https://wa.me/14622349916?text=Quiero%20informes%20de%20la%20boda%20de%20Karen%20%26%20Octavio"
+                                            href="https://wa.me/14622349916?text=Quiero%20confirmar%20para%20la%20boda%20de%20Octavio%20y%20Karen%3A%0AA%20Nombre%20de%3A%0ALugares%3A"
                                             class="theme-btn"><i class="fa fa-whatsapp"></i> Contactar por
                                             Whatsapp</a></button>
                                 </div>
@@ -363,24 +358,40 @@
         <script>
             const form = document.querySelector("#confirmation-form")
             const submitButton = document.querySelector("#form-submit")
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzPCPt4xFBQ2X0RDP6GOfRI3ykpImM1I4qo2zXv32ox0SPyYHmHYDnZz4YhOWb4P6MX/exec'
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyormwi5UJ-fSORVBWHOEBu_TidPCHIU5rcPRTI39snMQxzZOtFYWD-HZ_PnsYkFZzN/exec'
+
+            function validateForm() {
+                let phone = form["form-phone"].value;
+                let name = form["form-name"].value;
+                let guests = form["form-guest"].value;
+                var rePhone = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+                if (!rePhone.test(phone)) {
+                    alert("El teléfono debe ser a 10 dígitos");
+                    return false;
+                }
+                confirmationMessage = `Verifique que los datos sean correctos:\nNombre: ${name}\nTelefono: ${phone}\nAsistentes: ${guests}`
+                return confirm(confirmationMessage)
+
+            }
 
             form.addEventListener('submit', e => {
-                submitButton.disabled = true
                 e.preventDefault()
-                let requestBody = new FormData(form)
+                if (validateForm()) {
 
-                fetch(scriptURL, { method: 'POST', body: requestBody, mode: 'no-cors' })
-                    .then(response => {
-                        alert('Success!', response)
-                        submitButton.disabled = false
-                    })
-                    .catch(error => {
-                        alert('Error!', error.message)
-                        submitButton.disabled = false
+                    let requestBody = new FormData(form)
 
-                    }
-                    )
+                    fetch(scriptURL, { method: 'POST', body: requestBody, mode: 'no-cors' })
+                        .then(response => {
+                            alert('Datos enviados con éxito', response)
+                            submitButton.disabled = false
+                        })
+                        .catch(error => {
+                            alert('Error!', error.message)
+                            submitButton.disabled = false
+
+                        }
+                        )
+                }
             })
         </script>
         <!-- end of wpo-contact-section -->
